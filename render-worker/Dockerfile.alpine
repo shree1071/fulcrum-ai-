@@ -1,0 +1,19 @@
+FROM node:20-alpine
+
+# Install Blender and OpenSCAD
+RUN apk add --no-cache \
+    blender \
+    openscad \
+    python3 \
+    py3-pip
+
+WORKDIR /app
+
+COPY package.json ./
+RUN npm install
+
+COPY server.js ./
+
+EXPOSE 8787
+
+CMD ["npm", "start"]
